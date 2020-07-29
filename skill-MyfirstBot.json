@@ -1,0 +1,461 @@
+{
+  "intents": [
+    {
+      "intent": "Order",
+      "examples": [
+        {
+          "text": "place an order"
+        },
+        {
+          "text": "I want to order"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Greetings",
+      "examples": [
+        {
+          "text": "Hey"
+        },
+        {
+          "text": "Hi"
+        },
+        {
+          "text": "Good Evening"
+        },
+        {
+          "text": "Good Morning"
+        },
+        {
+          "text": "Hello"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Enquiry",
+      "examples": [
+        {
+          "text": "What are the specials?"
+        },
+        {
+          "text": "What is the discount available"
+        },
+        {
+          "text": "Any offers available"
+        },
+        {
+          "text": "What is the menu?"
+        }
+      ],
+      "description": ""
+    }
+  ],
+  "entities": [
+    {
+      "entity": "food-items",
+      "values": [],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "Enquiry",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "menu",
+          "synonyms": [
+            "specials"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "offers",
+          "synonyms": [
+            "discount"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "sys-number",
+      "values": [],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "Greetings",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Good Morning",
+          "synonyms": [
+            "gm",
+            "gud mrng"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "Good Afternoon",
+          "synonyms": [
+            "ga",
+            "gud aftern"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "Good evening",
+          "synonyms": [
+            "gud evng",
+            "evng"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "food_items",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Burger",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Noodles",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Momos",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "pizza",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Fried rice",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    }
+  ],
+  "metadata": {
+    "api_version": {
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
+    }
+  },
+  "dialog_nodes": [
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "Enter the Quantity"
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "slot_7_1594491671436",
+      "event_name": "focus",
+      "dialog_node": "handler_10_1594491671447",
+      "previous_sibling": "handler_6_1594491671447"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_7_1594491671436",
+      "context": {
+        "number": "@sys-number"
+      },
+      "conditions": "@sys-number",
+      "event_name": "input",
+      "dialog_node": "handler_6_1594491671447"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hello......"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_5_1594489259477",
+      "conditions": "anything else",
+      "dialog_node": "response_2_1594489947449",
+      "previous_sibling": "response_6_1594489901696"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Good Afternoon"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_5_1594489259477",
+      "conditions": "@Greetings:(Good Afternoon)",
+      "dialog_node": "response_8_1594489873873",
+      "previous_sibling": "response_6_1594489770924"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Good evening"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_5_1594489259477",
+      "conditions": "@Greetings:(Good evening)",
+      "dialog_node": "response_6_1594489901696",
+      "previous_sibling": "response_8_1594489873873"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Good Morning"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_5_1594489259477",
+      "conditions": "@Greetings:(Good Morning)",
+      "dialog_node": "response_6_1594489770924"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "title": "Menu",
+            "source": "http://i.xp.io/1h4hmLXv.jpg",
+            "response_type": "image"
+          }
+        ]
+      },
+      "parent": "node_4_1594490395074",
+      "conditions": "@Enquiry:menu",
+      "dialog_node": "response_1_1594490578897",
+      "previous_sibling": "response_8_1594490424584"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "20% off on all the dishes"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_4_1594490395074",
+      "conditions": "@Enquiry:offers",
+      "dialog_node": "response_8_1594490424584"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "Enter Item Name"
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "slot_2_1594491561587",
+      "event_name": "focus",
+      "dialog_node": "handler_4_1594491561658",
+      "previous_sibling": "handler_8_1594491561658"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_2_1594491561587",
+      "context": {
+        "food_items": "@food_items"
+      },
+      "conditions": "@food_items",
+      "event_name": "input",
+      "dialog_node": "handler_8_1594491561658"
+    },
+    {
+      "type": "slot",
+      "parent": "node_2_1594491533077",
+      "variable": "$food_items",
+      "dialog_node": "slot_2_1594491561587",
+      "previous_sibling": "node_5_1594493764963"
+    },
+    {
+      "type": "slot",
+      "parent": "node_2_1594491533077",
+      "variable": "$number",
+      "dialog_node": "slot_7_1594491671436",
+      "previous_sibling": "slot_2_1594491561587"
+    },
+    {
+      "type": "standard",
+      "title": "Delete context",
+      "parent": "node_2_1594491533077",
+      "conditions": "true",
+      "dialog_node": "node_5_1594493764963"
+    },
+    {
+      "type": "standard",
+      "title": "Enquiry",
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "#Enquiry || @Enquiry",
+      "dialog_node": "node_4_1594490395074",
+      "previous_sibling": "node_5_1594489259477"
+    },
+    {
+      "type": "standard",
+      "title": "Greetings",
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "#Greetings || @Greetings",
+      "dialog_node": "node_5_1594489259477",
+      "previous_sibling": "Welcome"
+    },
+    {
+      "type": "frame",
+      "title": "Order",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Your order of $food_items of $number quantity is placed successfully."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "#Order",
+      "dialog_node": "node_2_1594491533077",
+      "previous_sibling": "node_4_1594490395074"
+    },
+    {
+      "type": "standard",
+      "title": "Anything else",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "I didn't understand. You can try rephrasing."
+              },
+              {
+                "text": "Can you reword your statement? I'm not understanding."
+              },
+              {
+                "text": "I didn't get your meaning."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "anything_else",
+      "dialog_node": "Anything else",
+      "previous_sibling": "node_2_1594491533077",
+      "disambiguation_opt_out": true
+    },
+    {
+      "type": "standard",
+      "title": "Welcome",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hello. How can I help you?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "welcome",
+      "dialog_node": "Welcome"
+    }
+  ],
+  "counterexamples": [],
+  "system_settings": {
+    "off_topic": {
+      "enabled": true
+    },
+    "disambiguation": {
+      "prompt": "Did you mean:",
+      "enabled": true,
+      "randomize": true,
+      "max_suggestions": 5,
+      "suggestion_text_policy": "title",
+      "none_of_the_above_prompt": "None of the above"
+    },
+    "system_entities": {
+      "enabled": true
+    },
+    "human_agent_assist": {
+      "prompt": "Did you mean:"
+    },
+    "spelling_auto_correct": true
+  },
+  "learning_opt_out": false,
+  "name": "MyfirstBot",
+  "language": "en",
+  "description": ""
+}
